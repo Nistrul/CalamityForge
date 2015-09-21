@@ -1,0 +1,17 @@
+extends layout
+
+block content
+  h1= title
+
+  p Fetch CR Combinations with XP
+  input#xpinput(type="text", placeholder="700")
+
+  h2 Selected Encounter
+    p= chosen.text
+
+  h2 XP Combinations
+  ul
+    each val in encounters
+      li= val.text + ' ' + val.weight + ' ' + val.weightScale
+
+   h2#target

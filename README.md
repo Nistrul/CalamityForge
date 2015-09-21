@@ -1,4 +1,4 @@
 CalamityForge
 =============
 
-Random Table Builder
+Tools to made running roleplaying games easier.
