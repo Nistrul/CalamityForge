@@ -3,17 +3,23 @@ var gulp        = require('gulp');
 var jshint      = require('gulp-jshint');
 
 var paths = {
-  scripts: ['app.js', 'routes/*.js']
+  serverScripts: ['app.js', 'routes/*.js']
 };
 
-// Lint Task
+
+
+gulp.task('server', ['lint'], function() {});
+
 gulp.task('lint', function() {
-    return gulp.src(paths.scripts)
+    return gulp.src(paths.serverScripts)
         .pipe(jshint())
         .pipe(jshint.reporter('jshint-stylish'));
 });
 
-gulp.task('default', ['lint'], function() {
 
-});
+gulp.task('watch', function() {
+	gulp.watch(paths.serverScripts, ['server']) 
+  });
+
+gulp.task('default', ['server'], function() {});
 
