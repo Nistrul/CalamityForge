@@ -626,12 +626,10 @@ function createValuedEncounterTable(encounterTable, xp)
 			entry.weight *= 4;
 		}
 
-		// 0 level creatures generally don't make good enemies
-		if (encounterTable[i].creatureGroups[0].crIndex === 0)
-		{
-			entry.weight *= 0.25;
-		}
+		// scale to prefer encounters with a more powerful creature
+		entry.weight *= (encounterTable[i].creatureGroups[0].crIndex / 4 + 0.1);
 
+		// scale for number of creatures
 		entry.weight *= g_weightMultiplierByCreatureCount[getCreatureCount(encounterTable[i])];
 
 		valuedEncounterTable.push(encounterTable[i]);
