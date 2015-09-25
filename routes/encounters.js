@@ -1,3 +1,4 @@
+/* jshint node: true */
 "use strict";
 
 var express = require('express');
@@ -307,7 +308,7 @@ function generateTripleCREncounters(crEntry2, crEntry1, crEntry0, encounterSetti
 
 					if (totalXP <= encounterSettings.maxExperience && 
 						numCreature0 >= numCreature1 && numCreature1 >= numCreature2 &&
-						crEntry0.crIndex != 0 || totalXP < 700)
+						crEntry0.crIndex !== 0 || totalXP < 700)
 					{
 						result.push(
 						{
@@ -405,7 +406,7 @@ function compareEncounterByXPCR(a, b)
 		}
 	}
 
-	return a.xp-b.xp
+	return a.xp-b.xp;
 }
 
 function compareEncounterByXPGroupCountCR(a, b)
@@ -435,7 +436,7 @@ function compareEncounterByXPGroupCountCR(a, b)
 		}
 	}
 
-	return a.xp-b.xp
+	return a.xp-b.xp;
 }
 
 function compareEncounterByGroupCountCRNum(a, b)
@@ -525,7 +526,7 @@ function getXPTolerance(xp)
 		{xp:  20000, tolerance: 0.008},
 		{xp:  50000, tolerance: 0.006},
 		{xp: 100000, tolerance: 0.004}
-	]
+	];
 
 	var tolerance = toleranceTable[bs.closest(toleranceTable, xp,
 			function(value, find)
@@ -596,7 +597,6 @@ function createEncounterTableRemoveSimilarEntries(encounterTable)
 	var runStart = 0;
 	var inRun = false;
 	var selection;
-	var newTable = [];
 	var runLength;
 	var random;
 	var newTable = encounterTable.slice();
