@@ -66,6 +66,30 @@ var g_encounterSettings = {
 	maxExperience: 155000
 };
 
+var g_toleranceTable = [
+	{xp:     10, tolerance: 1.500},
+	{xp:     25, tolerance: 1.000},
+	{xp:     30, tolerance: 0.800},
+	{xp:     50, tolerance: 0.700},
+	{xp:     60, tolerance: 0.600},
+	{xp:     70, tolerance: 0.500},
+	{xp:     80, tolerance: 0.400},
+	{xp:     90, tolerance: 0.300},
+	{xp:    100, tolerance: 0.200},
+	{xp:    140, tolerance: 0.150},
+	{xp:    200, tolerance: 0.100},
+	{xp:    300, tolerance: 0.080},
+	{xp:    500, tolerance: 0.050},
+	{xp:    650, tolerance: 0.040},
+	{xp:   1100, tolerance: 0.030},
+	{xp:   2000, tolerance: 0.020},
+	{xp:   7000, tolerance: 0.015},
+	{xp:  10000, tolerance: 0.010},
+	{xp:  20000, tolerance: 0.008},
+	{xp:  50000, tolerance: 0.006},
+	{xp: 100000, tolerance: 0.004}
+];
+
 var g_masterEncounterTable = generateEncounterTable(g_encountersCRTable, g_encounterSettings);
 
 var g_testEncounterTable1 = [
@@ -504,31 +528,7 @@ function generateEncounterTable(crTable, encounterSettings)
 
 function getXPTolerance(xp)
 {
-	var toleranceTable = [
-		{xp:     10, tolerance: 1.500},
-		{xp:     25, tolerance: 1.000},
-		{xp:     30, tolerance: 0.800},
-		{xp:     50, tolerance: 0.700},
-		{xp:     60, tolerance: 0.600},
-		{xp:     70, tolerance: 0.500},
-		{xp:     80, tolerance: 0.400},
-		{xp:     90, tolerance: 0.300},
-		{xp:    100, tolerance: 0.200},
-		{xp:    140, tolerance: 0.150},
-		{xp:    200, tolerance: 0.100},
-		{xp:    300, tolerance: 0.080},
-		{xp:    500, tolerance: 0.050},
-		{xp:    650, tolerance: 0.040},
-		{xp:   1100, tolerance: 0.030},
-		{xp:   2000, tolerance: 0.020},
-		{xp:   7000, tolerance: 0.015},
-		{xp:  10000, tolerance: 0.010},
-		{xp:  20000, tolerance: 0.008},
-		{xp:  50000, tolerance: 0.006},
-		{xp: 100000, tolerance: 0.004}
-	];
-
-	var tolerance = toleranceTable[bs.closest(toleranceTable, xp,
+	var tolerance = g_toleranceTable[bs.closest(g_toleranceTable, xp,
 			function(value, find)
 			{
 				if (value.xp > find)
