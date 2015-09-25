@@ -1,4 +1,4 @@
 CalamityForge
 =============
 
-Tools to made running roleplaying games easier.
+Tools to make running roleplaying games easier.
