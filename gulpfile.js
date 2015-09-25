@@ -1,9 +1,15 @@
 var gulp        = require('gulp');
 
-var jshint      = require('gulp-jshint');
+var plugins =
+{
+	jshint: require('gulp-jshint'),
+	nodemon: require('gulp-nodemon')
+};
 
-var paths = {
-  serverScripts: ['app.js', 'routes/*.js']
+
+var server = {
+	start: './bin/www',
+	scriptPaths: ['app.js', 'routes/*.js']
 };
 
 
@@ -11,14 +17,21 @@ var paths = {
 gulp.task('server', ['lint'], function() {});
 
 gulp.task('lint', function() {
-    return gulp.src(paths.serverScripts)
-        .pipe(jshint())
-        .pipe(jshint.reporter('jshint-stylish'));
+    return gulp.src(server.scriptPaths)
+        .pipe(plugins.jshint())
+        .pipe(plugins.jshint.reporter('jshint-stylish'));
 });
 
 
+gulp.task('serverMon', function () {
+  return plugins.nodemon({
+    watch: server.scriptPaths,
+    script: server.start
+  });
+});
+
 gulp.task('watch', function() {
-	gulp.watch(paths.serverScripts, ['server']) 
+	gulp.watch(server.scriptPaths, ['server']) 
   });
 
 gulp.task('default', ['server'], function() {});
