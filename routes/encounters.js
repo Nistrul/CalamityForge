@@ -591,57 +591,6 @@ function isEncounterSimilar(entry0, entry1)
 	}
 }
 
-function createEncounterTableRemoveSimilarEntries(encounterTable)
-{
-	var i, j;
-	var runStart = 0;
-	var inRun = false;
-	var selection;
-	var runLength;
-	var random;
-	var newTable = encounterTable.slice();
-	var resultTable = [];
-
-	newTable.sort(compareEncounterByXPGroupCountCR);
-
-	for (i = 0; i < newTable.length; i++)
-	{
-		console.log(i + ': ' + newTable[i].text);
-
-		if (i >= newTable.length - 1 || !isEncounterSimilar(newTable[i], newTable[i+1]))
-		{
-			runLength = i - runStart;
-
-			if (runLength === 0)
-			{
-				selection = runStart;
-				console.log('xxx');
-			}
-			else
-			{
-				random = Math.random();
-
-				selection = runStart + Math.floor(random * (runLength + 1));
-
-				// console.log('selecting ' + selection + ' from range ' + runStart + ' to ' + runStart + runLength - 1);
-				console.log('random: ' + random);
-				console.log('runLength: ' + runLength);
-				console.log('selection: ' + selection);
-				console.log('start: ' + runStart);
-				console.log('end: ' + (runStart + runLength));
-
-			}
-
-			resultTable.push(newTable[selection]);
-			runStart = i + 1;
-		}
-	}
-
-	resultTable.sort(compareEncounterByXPCR);
-
-	return resultTable;
-}
-
 function getCreatureCount(encounterTableEntry)
 {
 	var sum = 0;
@@ -785,7 +734,6 @@ router.get('/xp/:xpvalue', function(req, res, next)
 	var selectedEncounter;
 
 	encounterTable = createFilteredEncounterTable(g_masterEncounterTable, xp);
-	// encounterTable = createEncounterTableRemoveSimilarEntries(encounterTable);
 	encounterTable = createValuedEncounterTable(encounterTable, xp);
 	selectedEncounter = selectEncounter(encounterTable);
 
