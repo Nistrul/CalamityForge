@@ -2,8 +2,4 @@ extends layout
 
 block content
   h1= title
-
-  p Fetch CR Combinations with XP
-  input#xpinput(type="text", placeholder="700")
-  
-  div#target
+  include encountersQuery
