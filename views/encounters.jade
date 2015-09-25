@@ -7,11 +7,12 @@ block content
   input#xpinput(type="text", placeholder="700")
 
   h2 Selected Encounter
-    p= chosen.text
+    p= 'Roll (1d100): ' + chosen.roll
+    p= chosen.entry.text
 
   h2 XP Combinations
   ul
     each val in encounters
-      li= val.text + ' ' + val.weight + ' ' + val.weightScale
+      li= val.rollText + ' ' + val.text
 
    h2#target

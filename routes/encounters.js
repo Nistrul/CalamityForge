@@ -687,6 +687,58 @@ function weightSimilarEntries(encounterTable)
 	encounterTable.sort(compareEncounterByWeightCRNum);
 }
 
+function createNormalizedValuedEncounterTable(encounterTable, tableSize)
+{
+	var newEncounterTable = [];
+	var weightSum = 0;
+
+	for (var i = 0; i < encounterTable.length; i++)
+	{
+		weightSum += encounterTable[i].weight;
+	}
+
+	var factor = tableSize / weightSum;
+	console.log('tableSize: ' + tableSize + ', weightSum: ' + weightSum + ', factor: ' + factor);
+
+	// round
+	var weightSumPrev = 0;
+	weightSum = 0;
+	var weight;
+
+	for (i = 0; i < encounterTable.length && weightSum < tableSize; i++)
+	{
+		weight = Math.ceil((encounterTable[i].weight * factor));
+		weightSum += weight;
+
+		if ((weightSum + 1) > tableSize)
+		{
+			console.log('weightSum + 1: ' + (weightSum + 1));
+			weight -= (weightSum - tableSize);
+			weightSum -= (weightSum - tableSize);
+			console.log('weight: ' + weight);
+		}
+
+		newEncounterTable.push(encounterTable[i]);
+		newEncounterTable[i].weight = weight;
+
+		if (weight === 1)
+		{
+			newEncounterTable[i].rollText = '[' + weightSum + ']';
+		}
+		else
+		{
+			newEncounterTable[i].rollText = '[' + (weightSumPrev + 1) + ' - ' + weightSum + ']';
+		}
+
+		newEncounterTable[i].low = weightSumPrev + 1;
+		newEncounterTable[i].high = weightSum;
+
+		weightSumPrev = weightSum;
+	}
+
+	return newEncounterTable;
+}
+
 function selectEncounter(encounterTable)
 {
 	var i;
@@ -716,8 +768,10 @@ function selectEncounter(encounterTable)
 	console.log('randomWeightSelection: ' + randomWeightSelection);
 	console.log('selectedIndex: ' + (i - 1));
 
-	return encounterTable[i - 1];
+	return { roll: (Math.floor(randomWeightSelection) + 1), entry: encounterTable[i - 1] };
 }
+
+
 
 /* GET home page. */
 router.get('/', function(req, res, next) 
@@ -734,6 +788,7 @@ router.get('/xp/:xpvalue', function(req, res, next)
 
 	encounterTable = createFilteredEncounterTable(g_masterEncounterTable, xp);
 	encounterTable = createValuedEncounterTable(encounterTable, xp);
+	encounterTable = createNormalizedValuedEncounterTable(encounterTable, 100);
 	selectedEncounter = selectEncounter(encounterTable);
 
 	console.log('selected: ' + selectedEncounter.text);
