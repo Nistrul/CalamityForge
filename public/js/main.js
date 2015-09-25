@@ -1,13 +1,12 @@
-
 $(function() {
 	var $xpinput = $('#xpinput');
 
 	$xpinput.keypress(
-		function() 
+		function(e) 
 		{
 			if (e.which == 13) 
 			{
-				$.get('/encounters/xp/'+$xpinput.value, {}, function(result) {
+				$.get('/encounterTable/xp/' + $xpinput.val(), {}, function(result) {
 					$('#target').html(result);
 				});
 			}

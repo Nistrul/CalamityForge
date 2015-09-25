@@ -9,7 +9,7 @@ var plugins =
 
 var server = {
 	start: './bin/www',
-	scriptPaths: ['app.js', 'routes/*.js']
+	scriptPaths: ['app.js', 'routes/*.js', 'src/*.js']
 };
 
 

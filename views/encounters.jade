@@ -5,14 +5,5 @@ block content
 
   p Fetch CR Combinations with XP
   input#xpinput(type="text", placeholder="700")
-
-  h2 Selected Encounter
-    p= 'Roll (1d100): ' + chosen.roll
-    p= chosen.entry.text
-
-  h2 XP Combinations
-  ul
-    each val in encounters
-      li= val.rollText + ' ' + val.text
-
-   h2#target
+  
+  div#target

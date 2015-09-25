@@ -1,11 +1,10 @@
 /* jshint node: true */
 "use strict";
 
-var express = require('express');
-var router = express.Router();
 var bs = require('binarysearch');
 
-var g_encountersCRTable = [
+
+var encountersCRTable = [
 	{crIndex:  0, cr:   '0', xp:     10},
 	{crIndex:  1, cr: '1/8', xp:     25},
 	{crIndex:  2, cr: '1/4', xp:     50},
@@ -37,7 +36,7 @@ var g_encountersCRTable = [
 	{crIndex: 33, cr:  '30', xp: 155000}
 	];
 
-var g_weightMultiplierByCreatureCount = [
+var weightMultiplierByCreatureCount = [
 	0,
 	4,
 	3,
@@ -60,14 +59,14 @@ var g_weightMultiplierByCreatureCount = [
 	0.15625 
 ];
 
-var g_encounterSettings = {
+var encounterSettings = {
 	maxCreatures: 18,
 	minGroupSignificance: 0.2,
 	maxLevelDifference: 4,
 	maxExperience: 155000
 };
 
-var g_toleranceTable = [
+var toleranceTable = [
 	{xp:     10, tolerance: 1.500},
 	{xp:     25, tolerance: 1.000},
 	{xp:     30, tolerance: 0.800},
@@ -91,9 +90,9 @@ var g_toleranceTable = [
 	{xp: 100000, tolerance: 0.004}
 ];
 
-var g_masterEncounterTable = generateEncounterTable(g_encountersCRTable, g_encounterSettings);
+var masterEncounterTable = generateEncounterTable(encountersCRTable, encounterSettings);
 
-var g_testEncounterTable1 = [
+var testEncounterTable1 = [
 	{
 		creatureGroups:
 		[
@@ -529,7 +528,7 @@ function generateEncounterTable(crTable, encounterSettings)
 
 function getXPTolerance(xp)
 {
-	var tolerance = g_toleranceTable[bs.closest(g_toleranceTable, xp,
+	var tolerance = toleranceTable[bs.closest(toleranceTable, xp,
 			function(value, find)
 			{
 				if (value.xp > find)
@@ -550,11 +549,11 @@ function getXPTolerance(xp)
 	return { tolerance: tolerance, lower: lowerBound, upper: upperBound };
 }
 
-function createFilteredEncounterTable(parentEncounterTable, xp)
+function createFilteredEncounterTable(xp)
 {
 	var tolerance = getXPTolerance(xp);
 
-	return bs.rangeValue(parentEncounterTable, tolerance.lower, tolerance.upper, 
+	return bs.rangeValue(masterEncounterTable, tolerance.lower, tolerance.upper, 
 		function(value, find) 
 		{
 	  		if (value.xp > find)
@@ -631,7 +630,7 @@ function createValuedEncounterTable(encounterTable, xp)
 		entry.weight *= (encounterTable[i].creatureGroups[0].crIndex / 4 + 0.1);
 
 		// scale for number of creatures
-		entry.weight *= g_weightMultiplierByCreatureCount[getCreatureCount(encounterTable[i])];
+		entry.weight *= weightMultiplierByCreatureCount[getCreatureCount(encounterTable[i])];
 
 		valuedEncounterTable.push(encounterTable[i]);
 	}
@@ -739,7 +738,7 @@ function createNormalizedValuedEncounterTable(encounterTable, tableSize)
 	return newEncounterTable;
 }
 
-function selectEncounter(encounterTable)
+function select(encounterTable)
 {
 	var i;
 	var weightSum = 0;
@@ -771,30 +770,20 @@ function selectEncounter(encounterTable)
 	return { roll: (Math.floor(randomWeightSelection) + 1), entry: encounterTable[i - 1] };
 }
 
-
-
-/* GET home page. */
-router.get('/', function(req, res, next) 
+function create(xp, diceSize)
 {
-	res.render('encounters', { title: 'Encounters', encounters: g_masterEncounterTable });
-});
+	var table;
+	
+	table = createFilteredEncounterTable(xp);
+	table = createValuedEncounterTable(table, xp);
+	table = createNormalizedValuedEncounterTable(table, diceSize);
 
-router.get('/xp/:xpvalue', function(req, res, next)
-{
-	var xp = parseInt(req.params.xpvalue);
+	return table;
+}
 
-	var encounterTable;
-	var selectedEncounter;
+module.exports = {
+	create: create,
+	select: select
+}
 
-	encounterTable = createFilteredEncounterTable(g_masterEncounterTable, xp);
-	encounterTable = createValuedEncounterTable(encounterTable, xp);
-	encounterTable = createNormalizedValuedEncounterTable(encounterTable, 100);
-	selectedEncounter = selectEncounter(encounterTable);
-
-	console.log('selected: ' + selectedEncounter.text);
-
-	res.render('encounters', { title: 'Encounters', encounters: encounterTable, chosen: selectedEncounter});
-});
-
-module.exports = router;
 
