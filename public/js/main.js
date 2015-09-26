@@ -26,4 +26,9 @@ window.onpopstate = function(e){
         $('#target').html(e.state.targetHtml);
         $('#xpinput').val('');
     }
+    else
+    {
+        $('#target').remove();
+        $('#xpinput').val('');    
+    }
 };
