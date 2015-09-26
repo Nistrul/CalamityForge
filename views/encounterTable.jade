@@ -3,6 +3,35 @@ p= 'Roll (1d100): ' + chosen.roll
 p= chosen.entry.text
 
 h2 XP Combinations
-ul
-  each val in encounters
-    li= val.rollText + ' ' + val.text
+div.table-responsive
+  table.table
+    tr
+      th Dice Roll
+      th Group 1
+      th Group 2
+      th Group 3
+      th XP
+    each val in encounters
+      tr
+        td.randomTableDiceRoll= val.rollText
+        if val.creatureGroups[0].num > 1
+          td= val.creatureGroups[0].num + 'x ' + val.creatureGroups[0].cr
+        else
+          td= val.creatureGroups[0].cr
+  
+        if val.creatureGroups[1]
+          if val.creatureGroups[1].num > 1
+            td= val.creatureGroups[1].num + 'x ' + val.creatureGroups[1].cr
+          else
+            td= val.creatureGroups[1].cr
+        else
+          td
+
+        if val.creatureGroups[2]
+          if val.creatureGroups[2].num > 1
+            td= val.creatureGroups[2].num + 'x ' + val.creatureGroups[2].cr
+          else
+            td= val.creatureGroups[2].cr
+        else
+          td
+        td= val.xp

@@ -216,7 +216,7 @@ function generateSingleCREncounters(crEntry, encounterSettings, result)
 						}
 					],
 					xp: totalXP,
-					text: numCreatures + 'x ' + crEntry.cr + ' (' + totalXP + ')', 
+					text: numCreatures + 'x ' + crEntry.cr 
 				});
 		}
 	}
@@ -274,7 +274,7 @@ function generateDoubleCREncounters(crEntry1, crEntry0, encounterSettings, resul
 							}
 						],
 						xp: totalXP,
-						text: numCreature1 + 'x ' + crEntry1.cr + ', ' + numCreature0 + 'x ' + crEntry0.cr + ' (' + totalXP + ')' 
+						text: numCreature1 + 'x ' + crEntry1.cr + ', ' + numCreature0 + 'x ' + crEntry0.cr 
 					});
 				}
 			}
@@ -355,7 +355,7 @@ function generateTripleCREncounters(crEntry2, crEntry1, crEntry0, encounterSetti
 								}
 							],
 							xp: totalXP,
-							text: numCreature2 + 'x ' + crEntry2.cr + ', ' + numCreature1 + 'x ' + crEntry1.cr + ', ' + numCreature0 + 'x ' + crEntry0.cr + ' (' + totalXP + ')' 
+							text: numCreature2 + 'x ' + crEntry2.cr + ', ' + numCreature1 + 'x ' + crEntry1.cr + ', ' + numCreature0 + 'x ' + crEntry0.cr
 						});
 					}
 				}
@@ -722,11 +722,11 @@ function createNormalizedValuedEncounterTable(encounterTable, tableSize)
 
 		if (weight === 1)
 		{
-			newEncounterTable[i].rollText = '[' + weightSum + ']';
+			newEncounterTable[i].rollText = weightSum;
 		}
 		else
 		{
-			newEncounterTable[i].rollText = '[' + (weightSumPrev + 1) + ' - ' + weightSum + ']';
+			newEncounterTable[i].rollText = (weightSumPrev + 1) + ' - ' + weightSum;
 		}
 
 		newEncounterTable[i].low = weightSumPrev + 1;
