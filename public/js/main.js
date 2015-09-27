@@ -20,7 +20,6 @@ $(function() {
 							}, 
 							'', 
 							'/encounters/xp/' + $xpinput.val());
-						console.log("pushed it");
 					});
 
 					$('#xpalert').hide();
