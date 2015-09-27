@@ -1,13 +1,13 @@
 div.table-responsive
   if encounters
-    table.table.table-condensed
+    table#encounterTable.table.table-condensed
       tr
         th.text-center Dice Roll
         th.text-right CR A
         th.text-right CR B
         th.text-right CR C
         th.text-right XP
-        //
+        if debugging
           th.text-right XPTol
           th.text-right Grps
           th.text-right Pwr
@@ -16,7 +16,7 @@ div.table-responsive
           th.text-right Weight
 
         each val in encounters
-          tr
+          tr.encounterTableRow(data-low=val.low, data-high=val.high)
             td.text-center= val.rollText
             if val.creatureGroups[0].num > 1
               td.text-right= val.creatureGroups[0].num + 'x ' + val.creatureGroups[0].cr
@@ -39,7 +39,7 @@ div.table-responsive
             else
               td
             td.text-right= val.xp
-            //
+            if debugging
               td.text-right= Math.round(val.factors.xpTolerance * 10) / 10
               td.text-right= val.factors.numberOfGroups
               td.text-right= val.factors.mostPowerfulCreature

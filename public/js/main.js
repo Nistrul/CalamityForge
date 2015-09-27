@@ -44,3 +44,29 @@ window.onpopstate = function(e){
         $('#xpinput').val('');    
     }
 };
+
+function rollOnTable()
+{
+
+	var roll = Math.floor(Math.random() * 100) + 1;
+	$('#rollDisplay').val(roll);
+
+	var encounterTable = $('#encounterTable');
+
+    console.log("rolling on table");
+
+    encounterTable.children('tbody').children('tr.encounterTableRow').each(function() {
+    	$this = $(this);
+    	var low = parseInt($(this).attr("data-low"));
+    	var high = parseInt($(this).attr("data-high"));
+
+    	if (roll >= low && roll <= high)
+    	{
+    		$this.addClass("success");
+    	}
+    	else
+    	{
+    		$this.removeClass("success");
+    	}
+    });
+}
