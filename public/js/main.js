@@ -41,7 +41,7 @@ window.onpopstate = function(e){
     }
     else
     {
-        $('#target').remove();
+        $('#target').children(":first").empty();
         $('#xpinput').val('');    
     }
 };

@@ -787,7 +787,11 @@ function create(xp, diceSize)
 
 module.exports = {
 	create: create,
-	select: select
+	select: select,
+	constants: { 
+		xpmin: encountersCRTable[0].xp,
+		xpmax: encountersCRTable[encountersCRTable.length - 1].xp
+	}
 }
 
 
