@@ -1,5 +1,12 @@
 extends layout
 
 block content
-  h1= title
-  include encountersQuery
+    div.container-fluid
+      div.row-fluid
+        h1= title
+      div.row-fluid
+        div.col-md-8
+          div#target
+            include encounterTable
+        div.col-md-4
+          include encountersQuery

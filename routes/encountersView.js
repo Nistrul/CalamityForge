@@ -20,7 +20,7 @@ router.get('/xp/:xpvalue', function(req, res, next)
 
 	console.log('selected: ' + JSON.stringify(selected, null, 4));
 
-	res.render('encountersXP', { title: 'Encounters', encounters: table, chosen: selected});
+	res.render('encounters', { title: 'Encounters', encounters: table, chosen: selected});
 });
 
 module.exports = router;

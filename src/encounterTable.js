@@ -62,7 +62,8 @@ var weightMultiplierByCreatureCount = [
 var encounterSettings = {
 	maxCreatures: 18,
 	minGroupSignificance: 0.2,
-	maxLevelDifference: 4,
+	maxLevelDifferenceTriple: 4,
+	maxLevelDifferenceDouble: 7,
 	maxExperience: 155000
 };
 
@@ -201,7 +202,7 @@ function generateSingleCREncounters(crEntry, encounterSettings, result)
 
 	for (numCreatures = 1; numCreatures <= encounterSettings.maxCreatures; numCreatures++)
 	{
-		totalXP = crEntry.xp * numCreatures * getXPMultiplerByCreatureCount(numCreatures);
+		totalXP = Math.ceil(crEntry.xp * numCreatures * getXPMultiplerByCreatureCount(numCreatures));
 
 		if (totalXP <= encounterSettings.maxExperience)
 		{
@@ -254,7 +255,7 @@ function generateDoubleCREncounters(crEntry1, crEntry0, encounterSettings, resul
 
 			if (significance1 >= encounterSettings.minGroupSignificance && significance0 >= encounterSettings.minGroupSignificance)
 			{
-				totalXP = group1XP + group0XP;
+				totalXP = Math.ceil(group1XP + group0XP);
 
 				if (totalXP <= encounterSettings.maxExperience)
 				{
@@ -327,7 +328,7 @@ function generateTripleCREncounters(crEntry2, crEntry1, crEntry0, encounterSetti
 
 				if (significance2 > encounterSettings.minGroupSignificance && significance1 > encounterSettings.minGroupSignificance && significance0 > encounterSettings.minGroupSignificance)
 				{
-					totalXP = group0XP + group1XP + group2XP;
+					totalXP = Math.ceil(group0XP + group1XP + group2XP);
 						
 
 					if (totalXP <= encounterSettings.maxExperience && 
@@ -502,7 +503,7 @@ function generateEncounterTable(crTable, encounterSettings)
 
 	for (i = 0; i < crTable.length - 1; i++)
 	{
-		for (j = i + 1; (j < crTable.length) && ((j - i) <= encounterSettings.maxLevelDifference); j++)
+		for (j = i + 1; (j < crTable.length) && ((j - i) <= encounterSettings.maxLevelDifferenceDouble); j++)
 		{
 			generateDoubleCREncounters(crTable[j], crTable[i], encounterSettings, encounterTable);
 		}
@@ -510,10 +511,10 @@ function generateEncounterTable(crTable, encounterSettings)
 
 	for (i = 0; i < crTable.length - 2; i++)
 	{
-		for (j = i + 1; (j < crTable.length - 1) && ((j - i) <= encounterSettings.maxLevelDifference); j++)
+		for (j = i + 1; (j < crTable.length - 1) && ((j - i) <= encounterSettings.maxLevelDifferenceTriple); j++)
 		{
 
-			for (k = j + 1; k < crTable.length && k - i <= encounterSettings.maxLevelDifference; k++)
+			for (k = j + 1; k < crTable.length && k - i <= encounterSettings.maxLevelDifferenceTriple; k++)
 			{
 				generateTripleCREncounters(crTable[k], crTable[j], crTable[i], encounterSettings, 
 					encounterTable);
@@ -609,28 +610,38 @@ function createValuedEncounterTable(encounterTable, xp)
 	var i;
 	var xpDelta;
 	var tolerance = getXPTolerance(xp);
-	var weight;
 	var entry;
 
 	for (i = 0; i < encounterTable.length; i++)
 	{
+		entry = encounterTable[i];
+		entry.factors = {};
+
 		// XP Difference from ideal
 		xpDelta = Math.abs(xp - encounterTable[i].xp);
-		weight = 1 - (xpDelta / (2 * (tolerance.upper - xp)));
-		entry = encounterTable[i];
-		entry.weight = weight;
+		entry.factors.xpTolerance = 1 - (xpDelta / (1.5 * (tolerance.upper - xp)));
 
-		// number of creature groups
+		entry.weight = entry.factors.xpTolerance;
+
+		// number Of Groups
 		if (encounterTable[i].creatureGroups.length == 1)
 		{
-			entry.weight *= 4;
+			entry.factors.numberOfGroups = 1.5;
+		}
+		else
+		{
+			entry.factors.numberOfGroups = 1;
 		}
 
-		// scale to prefer encounters with a more powerful creature
-		entry.weight *= (encounterTable[i].creatureGroups[0].crIndex / 4 + 0.1);
+		entry.weight *= entry.factors.numberOfGroups;
+
+		// mostPowerfulCreature
+		entry.factors.mostPowerfulCreature = (encounterTable[i].creatureGroups[0].crIndex / 4 + 0.1);
+		entry.weight *= entry.factors.mostPowerfulCreature;
 
 		// scale for number of creatures
-		entry.weight *= weightMultiplierByCreatureCount[getCreatureCount(encounterTable[i])];
+		entry.factors.numberOfCreatures = weightMultiplierByCreatureCount[getCreatureCount(encounterTable[i])];
+		entry.weight *= entry.factors.numberOfCreatures;
 
 		valuedEncounterTable.push(encounterTable[i]);
 	}
@@ -659,7 +670,7 @@ function weightSimilarEntries(encounterTable)
 
 			if (runLength === 0)
 			{
-				console.log('xxx');
+				encounterTable[i].factors.similarCreatures = 1;
 			}
 			else
 			{
@@ -668,15 +679,8 @@ function weightSimilarEntries(encounterTable)
 				for (j = 0; j < runLength + 1; j++)
 				{
 					encounterTable[(runStart + j)].weight *= weightScale;
-					encounterTable[(runStart + j)].weightScale = weightScale;
+					encounterTable[(runStart + j)].factors.similarCreatures = weightScale;
 				}
-
-				// console.log('selecting ' + selection + ' from range ' + runStart + ' to ' + runStart + runLength - 1);
-				console.log('weightScale: ' + weightScale);
-				console.log('runLength: ' + runLength);
-				console.log('start: ' + runStart);
-				console.log('end: ' + (runStart + runLength));
-
 			}
 
 			runStart = i + 1;
