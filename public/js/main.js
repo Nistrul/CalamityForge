@@ -7,16 +7,29 @@ $(function() {
 			if (e.which == 13) 
 			{
 				var $target = $('#target');
-				$.get('/encounterTable/xp/' + $xpinput.val(), {}, function(result) {
-					$target.html(result);
-					window.history.pushState(
-						{
-							"targetHtml":$target.html()
-						}, 
-						'', 
-						'/encounters/xp/' + $xpinput.val());
-					console.log("pushed it");
-				});
+
+				var parsedValue = parseInt($xpinput.val(), 10);
+
+				if (!isNaN(parsedValue) && parsedValue >= xpmin && parsedValue <= xpmax)
+				{
+					$.get('/encounterTable/xp/' + $xpinput.val(), {}, function(result) {
+						$target.html(result);
+						window.history.pushState(
+							{
+								"targetHtml":$target.html()
+							}, 
+							'', 
+							'/encounters/xp/' + $xpinput.val());
+						console.log("pushed it");
+					});
+
+					$('#xpalert').hide();
+				}
+				else
+				{
+					$('#xpalert').show();
+					$('#xpinput').val('');
+				}
 			}
 		});
 });

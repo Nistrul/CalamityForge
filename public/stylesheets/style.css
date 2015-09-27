@@ -1,4 +1,27 @@
-col.randomTableDiceRoll {
-    text-align: center;
-    color: red;
+body {
+  padding-top: 50px;
+}
+
+
+.main-page-header {
+    background-image: url(/images/shale.jpg);
+    height: 720px;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-position: center top;
+    background-size: cover;
+}
+
+.page_body {
+	background-image: none;
+	background: white;
+}
+
+.spacer10 {
+	height: 10px;
+	background: white;
+}
+
+.hidden_alert {
+	display: none;
 }

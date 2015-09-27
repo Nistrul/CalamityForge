@@ -1,2 +1,8 @@
 span.p XP 
 input#xpinput(type="text", placeholder="700")
+div.spacer10
+div#xpalert.alert.alert-danger.hidden_alert(role='alert')
+  span.glyphicon.glyphicon-exclamation-sign(aria-hidden='true')
+  span.sr-only Error:
+  = ' XP must be between ' + xpmin + ' and ' + xpmax
+script= 'xpmin = ' + xpmin + '; xpmax = ' + xpmax +';'
