@@ -434,35 +434,6 @@ function compareEncounterByXPCR(a, b)
 	return a.xp-b.xp;
 }
 
-function compareEncounterByXPGroupCountCR(a, b)
-{
-	var i;
-
-	if (a.xp === b.xp)
-	{
-		if (a.creatureGroups.length != b.creatureGroups.length)
-		{
-			return b.creatureGroups.length - a.creatureGroups.length;
-		}
-
-		for (i = 0; i < a.creatureGroups.length; i++)
-		{
-			if (a.creatureGroups[i].crIndex === b.creatureGroups[i].crIndex)
-			{
-				if (a.creatureGroups[i].num != b.creatureGroups[i].num)
-				{
-					return b.creatureGroups[i].num - a.creatureGroups[i].num;
-				}
-			}
-			else
-			{
-				return b.creatureGroups[i].crIndex - a.creatureGroups[i].crIndex;
-			}
-		}
-	}
-
-	return a.xp-b.xp;
-}
 
 function compareEncounterByGroupCountCRNum(a, b)
 {
@@ -480,6 +451,33 @@ function compareEncounterByGroupCountCRNum(a, b)
 			if (a.creatureGroups[i].num != b.creatureGroups[i].num)
 			{
 				return b.creatureGroups[i].num - a.creatureGroups[i].num;
+			}
+		}
+		else
+		{
+			return b.creatureGroups[i].crIndex - a.creatureGroups[i].crIndex;
+		}
+	}
+
+	return 0;
+}
+
+function compareEncounterByGroupCountCRWeight(a, b)
+{
+	var i;
+
+	if (a.creatureGroups.length != b.creatureGroups.length)
+	{
+		return b.creatureGroups.length - a.creatureGroups.length;
+	}
+
+	for (i = 0; i < a.creatureGroups.length; i++)
+	{
+		if (a.creatureGroups[i].crIndex === b.creatureGroups[i].crIndex)
+		{
+			if (a.creatureGroups[i].weight != b.creatureGroups[i].weight)
+			{
+				return b.creatureGroups[i].weight - a.creatureGroups[i].weight;
 			}
 		}
 		else
@@ -646,40 +644,59 @@ function createValuedEncounterTable(encounterTable, xp)
 		valuedEncounterTable.push(encounterTable[i]);
 	}
 
-	weightSimilarEntries(valuedEncounterTable);
-
-	return valuedEncounterTable;
+	return createEncounterTableRemoveSimilarEntries(valuedEncounterTable);
 }
 
-function weightSimilarEntries(encounterTable)
+function createEncounterTableRemoveSimilarEntries(encounterTable)
 {
 	var i, j;
 	var runStart = 0;
+	var inRun = false;
+	var selection;
 	var runLength;
-	var weightScale;
+	var random;
+	var newTable = encounterTable.slice();
+	var resultTable = [];
 
-	encounterTable.sort(compareEncounterByGroupCountCRNum);
+	newTable.sort(compareEncounterByGroupCountCRNum);
 
-	for (i = 0; i < encounterTable.length; i++)
+	for (i = 0; i < newTable.length; i++)
 	{
-		console.log(i + ': ' + encounterTable[i].text);
-
-		if (i >= encounterTable.length - 1 || !isEncounterSimilar(encounterTable[i], encounterTable[i+1]))
+		if (i >= newTable.length - 1 || !isEncounterSimilar(newTable[i], newTable[i+1]))
 		{
 			runLength = i - runStart;
 
 			if (runLength === 0)
 			{
-				encounterTable[i].factors.similarCreatures = 1;
+				selection = runStart;
+				resultTable.push(newTable[selection]);
 			}
 			else
 			{
-				weightScale = 1 / (runLength + 1);
+				var bestWeight = -1;
+				var numBests = 0;
+				var j;
 
-				for (j = 0; j < runLength + 1; j++)
+				for (j = runStart; j < runStart + runLength + 1; j++)
 				{
-					encounterTable[(runStart + j)].weight *= weightScale;
-					encounterTable[(runStart + j)].factors.similarCreatures = weightScale;
+					if (newTable[j].weight > bestWeight)
+					{
+						bestWeight = newTable[j].weight;
+						numBests = 1;
+					}
+					else if (newTable[j].weight === bestWeight)
+					{
+						numBests += 1;
+					}
+				}
+
+				for (j = runStart; j < runStart + runLength + 1; j++)
+				{
+					if (newTable[j].weight === bestWeight)
+					{
+						newTable[j].weight /= numBests;
+						resultTable.push(newTable[j]);
+					}
 				}
 			}
 
@@ -687,8 +704,11 @@ function weightSimilarEntries(encounterTable)
 		}
 	}
 
-	encounterTable.sort(compareEncounterByWeightCRNum);
+	resultTable.sort(compareEncounterByWeightCRNum);
+
+	return resultTable;
 }
+
 
 function createNormalizedValuedEncounterTable(encounterTable, tableSize)
 {

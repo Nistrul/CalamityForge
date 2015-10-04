@@ -12,7 +12,6 @@ div.table-responsive
           th.text-right Grps
           th.text-right Pwr
           th.text-right Num
-          th.text-right Sim
           th.text-right Weight
 
         each val in encounters
@@ -44,5 +43,4 @@ div.table-responsive
               td.text-right= val.factors.numberOfGroups
               td.text-right= val.factors.mostPowerfulCreature
               td.text-right= val.factors.numberOfCreatures
-              td.text-right= Math.round(val.factors.similarCreatures * 100) / 100
               td.text-right= val.weight
