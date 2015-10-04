@@ -4,7 +4,7 @@ body {
 
 
 .main-page-header {
-    background-image: url(/images/shale.jpg);
+    background-image: url(/images/Anvil.jpg);
     height: 720px;
     width: 100%;
     background-repeat: no-repeat;
@@ -25,3 +25,30 @@ body {
 .hidden_alert {
 	display: none;
 }
+
+.myfont {
+	color: white;
+	font-size: 62px;
+    font-weight: 300;
+    font-style: normal;
+	font-family: "raleway",sans-serif;
+
+	text-shadow:
+    -1px -1px 0 #666666,
+    1px -1px 0 #666666,
+    -1px 1px 0 #666666,
+    1px 1px 0 #666666;  
+}
+
+.row_spacer {
+	height: 7%;
+}
+
+.logo {
+	display: inline-block;
+	vertical-align: middle;
+	width: 38px;
+	max-width: 100px;
+	margin-top: -20px;
+}
+
