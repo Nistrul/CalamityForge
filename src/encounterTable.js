@@ -721,7 +721,6 @@ function createNormalizedValuedEncounterTable(encounterTable, tableSize)
 	}
 
 	var factor = tableSize / weightSum;
-	console.log('tableSize: ' + tableSize + ', weightSum: ' + weightSum + ', factor: ' + factor);
 
 	// round
 	var weightSumPrev = 0;
@@ -735,10 +734,8 @@ function createNormalizedValuedEncounterTable(encounterTable, tableSize)
 
 		if ((weightSum + 1) > tableSize)
 		{
-			console.log('weightSum + 1: ' + (weightSum + 1));
 			weight -= (weightSum - tableSize);
 			weightSum -= (weightSum - tableSize);
-			console.log('weight: ' + weight);
 		}
 
 		newEncounterTable.push(encounterTable[i]);
@@ -783,13 +780,8 @@ function select(encounterTable)
 	{
 		weightSum += encounterTable[i].weight;
 		i++;
-		console.log('i: ' + i + ', cumulativeWeight: ' + weightSum);
 	} 
 	while (weightSum <= randomWeightSelection);
-
-	console.log('weightSum: ' + encounterTable.weightSum);
-	console.log('randomWeightSelection: ' + randomWeightSelection);
-	console.log('selectedIndex: ' + (i - 1));
 
 	return { roll: (Math.floor(randomWeightSelection) + 1), entry: encounterTable[i - 1] };
 }
