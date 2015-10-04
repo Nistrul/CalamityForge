@@ -80,15 +80,15 @@ var toleranceTable = [
 	{xp:    140, tolerance: 0.150},
 	{xp:    200, tolerance: 0.100},
 	{xp:    300, tolerance: 0.080},
-	{xp:    500, tolerance: 0.050},
-	{xp:    650, tolerance: 0.040},
-	{xp:   1100, tolerance: 0.030},
-	{xp:   2000, tolerance: 0.020},
-	{xp:   7000, tolerance: 0.015},
-	{xp:  10000, tolerance: 0.010},
-	{xp:  20000, tolerance: 0.008},
-	{xp:  50000, tolerance: 0.006},
-	{xp: 100000, tolerance: 0.004}
+	{xp:    500, tolerance: 0.075},
+	{xp:    650, tolerance: 0.070}, // tested
+	{xp:   1100, tolerance: 0.065},
+	{xp:   2000, tolerance: 0.060},
+	{xp:   7000, tolerance: 0.055},
+	{xp:  10000, tolerance: 0.050},
+	{xp:  20000, tolerance: 0.045},
+	{xp:  50000, tolerance: 0.040},
+	{xp: 100000, tolerance: 0.035}
 ];
 
 var masterEncounterTable = generateEncounterTable(encountersCRTable, encounterSettings);
