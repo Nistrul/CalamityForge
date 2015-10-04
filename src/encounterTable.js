@@ -791,7 +791,8 @@ module.exports = {
 	constants: { 
 		xpmin: encountersCRTable[0].xp,
 		xpmax: encountersCRTable[encountersCRTable.length - 1].xp
-	}
+	},
+	debugging: false
 }
 
 

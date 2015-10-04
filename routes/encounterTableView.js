@@ -28,7 +28,7 @@ router.get('/xp/:xpvalue', function(req, res, next)
 	{
 		var table = encounterTable.create(xp, 100);
 
-		res.render('encounterTable', { title: 'Encounters', encounters: table});
+		res.render('encounterTable', { title: 'Encounters', encounters: table, debugging: encounterTable.debugging});
 	}
 });
 

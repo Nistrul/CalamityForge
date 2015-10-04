@@ -34,7 +34,7 @@ router.get('/xp/:xpvalue', function(req, res, next)
 		var table = encounterTable.create(xp, 100);
 		var selected = encounterTable.select(table);
 
-		res.render('encounters', { encounters: table, xpmin: encounterTable.constants.xpmin, xpmax: encounterTable.constants.xpmax});
+		res.render('encounters', { encounters: table, xpmin: encounterTable.constants.xpmin, xpmax: encounterTable.constants.xpmax, debugging: encounterTable.debugging});
 	}
 });
 
