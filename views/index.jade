@@ -1,9 +1,12 @@
-extends layout
+extends root
 
-block content
-  header.main-page-header
-    div.row-fluid.row_spacer
-      div.col-md-2
+block styles
+  link(rel='stylesheet', href='/stylesheets/index.css')
+
+block layout
+  include navbar
+  div.container-fluid
     div.row-fluid
-      div.col-md-8
-        h1.myfont Tools to make running roleplaying games easier
+      div.big-image
+    div.row-fluid
+      h1.mystyle-wide Tools for Roleplaying Games

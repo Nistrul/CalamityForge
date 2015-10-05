@@ -4,12 +4,14 @@ body {
 
 
 .main-page-header {
-    background-image: url(/images/Anvil.jpg);
-    height: 720px;
+    background-image: url(/images/Anvil-dsd.jpg);
+    position: absolute;
+    height: 100%;
     width: 100%;
-    background-repeat: no-repeat;
-    background-position: center top;
+    top: 0;
+    left: 0;
     background-size: cover;
+    background-position: center;
 }
 
 .page_body {
@@ -32,12 +34,6 @@ body {
     font-weight: 300;
     font-style: normal;
 	font-family: "raleway",sans-serif;
-
-	text-shadow:
-    -1px -1px 0 #666666,
-    1px -1px 0 #666666,
-    -1px 1px 0 #666666,
-    1px 1px 0 #666666;  
 }
 
 .row_spacer {
@@ -51,4 +47,13 @@ body {
 	max-width: 100px;
 	margin-top: -20px;
 }
+
+.navbar {
+   background-color: transparent;
+   background: transparent;
+   border-color: transparent;
+}
+
+.navbar li { color: #000 } 
+
 
