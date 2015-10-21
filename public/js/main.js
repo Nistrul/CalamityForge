@@ -51,8 +51,8 @@ function rollOnTable(rollElementId)
 	var roll = Math.floor(Math.random() * 100) + 1;
 	$(rollElementId).val(roll);
 
-	var $encounterTableContainerInner = $('.encounterTableContainerInner');
-	var $encounterTable = $encounterTableContainerInner.find('#encounterTable');
+	var $encounterTableInner = $('.encounterTableInner');
+	var $encounterTable = $encounterTableInner.find('#encounterTable');
 	var $encounterTableBody = $encounterTable.children('tbody');
 	var $selectedElement;
 
