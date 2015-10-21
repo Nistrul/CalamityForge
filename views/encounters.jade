@@ -1,16 +1,12 @@
 extends layout
 
+block styles
+  link(rel='stylesheet', href='/stylesheets/encounters.css')
+
 block content
-    div.spacer10
-    div.container-fluid.page_body
-      div.row-fluid
-        p Enter the total party XP for an encounter to generate possible combinations of creature count and challenge rating.
-      div.row-fluid
-        div.col-md-3
+    div.container-fluid.encounterContainer
+      div.row-fluid.clearfix.encounterRow
+        div.col-md-2
           include encountersQuery
-          div.spacer10
-          include roll
-          div.spacer10
-        div.col-md-9#target
+        div.col-md-4#target.encounterTablePanelContainer
           include encounterTable
-        div.spacer10

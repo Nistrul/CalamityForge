@@ -45,17 +45,20 @@ window.onpopstate = function(e){
     }
 };
 
-function rollOnTable()
+
+function rollOnTable(rollElementId)
 {
-
 	var roll = Math.floor(Math.random() * 100) + 1;
-	$('#rollDisplay').val(roll);
+	$(rollElementId).val(roll);
 
-	var encounterTable = $('#encounterTable');
+	var $encounterTableContainerInner = $('.encounterTableContainerInner');
+	var $encounterTable = $encounterTableContainerInner.find('#encounterTable');
+	var $encounterTableBody = $encounterTable.children('tbody');
+	var $selectedElement;
 
     console.log("rolling on table");
 
-    encounterTable.children('tbody').children('tr.encounterTableRow').each(function() {
+    $encounterTableBody.children('tr.encounterTableRow').each(function() {
     	$this = $(this);
     	var low = parseInt($(this).attr("data-low"));
     	var high = parseInt($(this).attr("data-high"));
@@ -63,10 +66,24 @@ function rollOnTable()
     	if (roll >= low && roll <= high)
     	{
     		$this.addClass("success");
+    		$selectedElement = $this;
     	}
     	else
     	{
     		$this.removeClass("success");
     	}
     });
+
+    var containerTop = $encounterTableBody.offset().top;
+    var containerBottom = containerTop + $encounterTableBody.innerHeight();
+    var selectedTop = $selectedElement.offset().top;;
+    var selectedBottom  = selectedTop + $selectedElement.innerHeight();
+    var scroll = selectedTop - containerTop + $encounterTableBody.scrollTop();
+
+    if (selectedTop < containerTop || selectedBottom > containerBottom)
+    {
+		$encounterTableBody.animate({
+    		scrollTop: scroll
+		});
+	}
 }

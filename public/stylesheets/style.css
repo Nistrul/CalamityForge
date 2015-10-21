@@ -1,22 +1,14 @@
-body {
-  padding-top: 50px;
+.cf-html {
+	height: 100%;
 }
 
-
-.main-page-header {
-    background-image: url(/images/Anvil-dsd.jpg);
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    top: 0;
-    left: 0;
-    background-size: cover;
-    background-position: center;
+.cf-body {
+	padding-top: 50px;
+	height: 100%;
 }
 
-.page_body {
-	background-image: none;
-	background: white;
+.cf-head {
+	
 }
 
 .spacer10 {
@@ -24,36 +16,6 @@ body {
 	background: white;
 }
 
-.hidden_alert {
+.hidden {
 	display: none;
 }
-
-.myfont {
-	color: white;
-	font-size: 62px;
-    font-weight: 300;
-    font-style: normal;
-	font-family: "raleway",sans-serif;
-}
-
-.row_spacer {
-	height: 7%;
-}
-
-.logo {
-	display: inline-block;
-	vertical-align: middle;
-	width: 38px;
-	max-width: 100px;
-	margin-top: -20px;
-}
-
-.navbar {
-   background-color: transparent;
-   background: transparent;
-   border-color: transparent;
-}
-
-.navbar li { color: #000 } 
-
-

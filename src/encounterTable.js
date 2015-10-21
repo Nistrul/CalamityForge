@@ -552,7 +552,7 @@ function createFilteredEncounterTable(xp)
 {
 	var tolerance = getXPTolerance(xp);
 
-	return bs.rangeValue(masterEncounterTable, tolerance.lower, tolerance.upper, 
+	var newTable = bs.rangeValue(masterEncounterTable, tolerance.lower, tolerance.upper, 
 		function(value, find) 
 		{
 	  		if (value.xp > find)
@@ -566,6 +566,10 @@ function createFilteredEncounterTable(xp)
 
 	  		return 0;
 		});
+
+	newTable.xp = xp;
+
+	return newTable;
 }
 
 function isEncounterSimilar(entry0, entry1)
@@ -605,6 +609,7 @@ function getCreatureCount(encounterTableEntry)
 function createValuedEncounterTable(encounterTable, xp)
 {
 	var valuedEncounterTable = [];
+	valuedEncounterTable.xp = encounterTable.xp;
 	var i;
 	var xpDelta;
 	var tolerance = getXPTolerance(xp);
@@ -656,7 +661,9 @@ function createEncounterTableRemoveSimilarEntries(encounterTable)
 	var runLength;
 	var random;
 	var newTable = encounterTable.slice();
+	newTable.xp = encounterTable.xp;
 	var resultTable = [];
+	resultTable.xp = encounterTable.xp;
 
 	newTable.sort(compareEncounterByGroupCountCRNum);
 
@@ -713,6 +720,7 @@ function createEncounterTableRemoveSimilarEntries(encounterTable)
 function createNormalizedValuedEncounterTable(encounterTable, tableSize)
 {
 	var newEncounterTable = [];
+	newEncounterTable.xp = encounterTable.xp;
 	var weightSum = 0;
 
 	for (var i = 0; i < encounterTable.length; i++)

@@ -1,0 +1,79 @@
+.myTable {
+	margin-bottom: 0px;
+}
+
+.table-header {
+	margin-top: 0px;
+	font-weight: normal;
+	text-align: left;
+}
+
+.rollDisplay {
+	width: 40px;
+	text-align: right;
+}
+
+.encounterContainer {
+	height: 100%;
+}
+
+.encounterRow {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	height: calc(100% - 20px);
+}
+
+.encounterTablePanelContainer {
+	height: 100%;
+}
+
+.encounterTablePanelRow {
+	margin-bottom: 10px;
+}
+
+.encounterTableContainerInner {
+	height: calc(100% - 76px);
+}
+
+.encounterTable {
+	float: left;
+    width: 100%;
+    height: 100%;
+}
+
+.encounterTableHead {
+	float: left;
+	width: 100%;
+}
+
+.encounterTableBody {
+	float: left;
+	width: 100%;
+    height: calc(100% - 38px);
+    overflow-y:scroll; 
+}
+
+.encounterTableRow {
+	width: 100%;
+    display: table;
+    text-align: left;
+}
+
+.myDiceRollColumn {
+	text-align: left;
+    width: 22%;
+}
+
+.myCRColumn {
+	width: 20%;
+	text-align: right;
+}
+
+.myXPColumn {
+	width: 18%;
+	text-align: right;
+}
+
+
+
+
