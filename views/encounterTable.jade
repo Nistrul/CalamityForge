@@ -6,21 +6,21 @@ if encounters
   div.encounterTablePanelRow.encounterTableInner
     table#encounterTable.table.encounterTable
       thead.encounterTableHead
-        tr.encounterTableRow
+        tr.encounterTableHeaderRow
           th.diceRollColumn Roll
           th.CRColumn CR A
           th.CRColumn CR B
           th.CRColumn CR C
           th.XPColumn XP
           if debugging
-            th.text-right XPTol
-            th.text-right Grps
-            th.text-right Pwr
-            th.text-right Num
-            th.text-right Weight
+            th.DebugColumn Xpt
+            th.DebugColumn Grp
+            th.DebugColumn Pow
+            th.DebugColumn Num
+            th.DebugColumn Wt
       tbody.encounterTableBody
         each val in encounters
-          tr.encounterTableRow(data-low=val.low, data-high=val.high)
+          tr.encounterTableBodyRow(data-low=val.low, data-high=val.high)
             td.diceRollColumn= val.rollText
             if val.creatureGroups[0].num > 1
               td.CRColumn= val.creatureGroups[0].num + 'x ' + val.creatureGroups[0].cr

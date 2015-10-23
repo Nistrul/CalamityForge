@@ -58,7 +58,7 @@ function rollOnTable(rollElementId)
 
     console.log("rolling on table");
 
-    $encounterTableBody.children('tr.encounterTableRow').each(function() {
+    $encounterTableBody.children('tr.encounterTableBodyRow').each(function() {
     	$this = $(this);
     	var low = parseInt($(this).attr("data-low"));
     	var high = parseInt($(this).attr("data-high"));
