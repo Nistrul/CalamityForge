@@ -82,7 +82,7 @@ var toleranceTable = [
 	{xp:    300, tolerance: 0.130},
 	{xp:    500, tolerance: 0.120},
 	{xp:    650, tolerance: 0.120},
-	{xp:   1100, tolerance: 0.120}, // tested
+	{xp:   1100, tolerance: 0.120},
 	{xp:   2000, tolerance: 0.120},
 	{xp:   7000, tolerance: 0.120},
 	{xp:  10000, tolerance: 0.120},
