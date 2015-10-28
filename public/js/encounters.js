@@ -86,4 +86,14 @@ function rollOnTable(rollElementId)
     		scrollTop: scroll
 		});
 	}
+
+	var treasures = [];
+	var crgroups = parseInt($selectedElement.attr("data-crgroups"));
+
+	for (var i = 0; i < crgroups; i++)
+	{
+		var groupCount = parseInt($selectedElement.attr("data-crgroup" + i + "count"));
+		var groupCRIndex = parseInt($selectedElement.attr("data-crgroup" + i + "index"));
+		rollIndividualTreasures(groupCount, groupCRIndex, treasures);
+	}
 }
