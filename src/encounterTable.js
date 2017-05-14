@@ -682,7 +682,6 @@ function createEncounterTableRemoveSimilarEntries(encounterTable)
 			{
 				var bestWeight = -1;
 				var numBests = 0;
-				var j;
 
 				for (j = runStart; j < runStart + runLength + 1; j++)
 				{
@@ -813,6 +812,4 @@ module.exports = {
 		xpmax: encountersCRTable[encountersCRTable.length - 1].xp
 	},
 	debugging: false
-}
-
-
+};

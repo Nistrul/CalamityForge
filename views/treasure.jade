@@ -1,0 +1,33 @@
+extends layout
+
+block styles
+  link(rel='stylesheet', href='/stylesheets/treasure.css')
+  link(rel='stylesheet', href='/stylesheets/individualTreasure.css')
+
+block content
+    div.container-fluid.encounterContainer
+      div.row-fluid
+        h3 Individual Treasure
+      div.row-fluid
+        div.col-md-3
+          form#individualTreasureForm(role='form')
+            .form-group
+              label(for='cr0to4') CR 0-4: 
+              input#cr0to4.form-control(type='cr0to4', value=0) 
+            .form-group
+              label(for='cr5to10') CR 5-10: 
+              input#cr5to10.form-control(type='cr5to10', value=0)
+            .form-group
+              label(for='cr11to16') CR 11-16: 
+              input#cr11to16.form-control(type='cr11to16', value=0) 
+            .form-group
+              label(for='cr17to20') CR 17-20: 
+              input#cr17to20.form-control(type='cr17to20', value=0)
+            button.btn.btn-default(type='submit') Roll
+        div.col-md-3
+            p Result
+            p#individualTreasureResult No Treasure
+
+block scripts
+  script(src='/js/individualTreasure.js')
+  script(src='/js/treasure.js')

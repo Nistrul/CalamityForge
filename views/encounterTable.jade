@@ -22,32 +22,43 @@ if encounters
         each val in encounters
           if (val.creatureGroups.length === 1)
             tr.encounterTableBodyRow(data-low=val.low, data-high=val.high, data-crgroups=val.creatureGroups.length, data-crgroup0count=val.creatureGroups[0].num, data-crgroup0index=val.creatureGroups[0].crIndex)
+              td.diceRollColumn= val.rollText
+              if val.creatureGroups[0].num > 1
+                td.CRColumn= val.creatureGroups[0].num + 'x ' + val.creatureGroups[0].cr
+              else
+                td.CRColumn= val.creatureGroups[0].cr
+              td
+              td
+              td.XPColumn= val.xp
           if (val.creatureGroups.length === 2)
             tr.encounterTableBodyRow(data-low=val.low, data-high=val.high, data-crgroups=val.creatureGroups.length, data-crgroup0count=val.creatureGroups[0].num, data-crgroup0index=val.creatureGroups[0].crIndex, data-crgroup1count=val.creatureGroups[1].num, data-crgroup1index=val.creatureGroups[1].crIndex)
+              td.diceRollColumn= val.rollText
+              if val.creatureGroups[0].num > 1
+                td.CRColumn= val.creatureGroups[0].num + 'x ' + val.creatureGroups[0].cr
+              else
+                td.CRColumn= val.creatureGroups[0].cr
+              if val.creatureGroups[1].num > 1
+                td.CRColumn= val.creatureGroups[1].num + 'x ' + val.creatureGroups[1].cr
+              else
+                td.CRColumn= val.creatureGroups[1].cr
+              td
+              td.XPColumn= val.xp
           if (val.creatureGroups.length === 3)
             tr.encounterTableBodyRow(data-low=val.low, data-high=val.high, data-crgroups=val.creatureGroups.length, data-crgroup0count=val.creatureGroups[0].num, data-crgroup0index=val.creatureGroups[0].crIndex, data-crgroup1count=val.creatureGroups[1].num, data-crgroup1index=val.creatureGroups[1].crIndex, data-crgroup2count=val.creatureGroups[2].num, data-crgroup2index=val.creatureGroups[2].crIndex)
-          td.diceRollColumn= val.rollText
-          if val.creatureGroups[0].num > 1
-            td.CRColumn= val.creatureGroups[0].num + 'x ' + val.creatureGroups[0].cr
-          else
-            td.CRColumn= val.creatureGroups[0].cr
-    
-          if val.creatureGroups[1]
-            if val.creatureGroups[1].num > 1
-              td.CRColumn= val.creatureGroups[1].num + 'x ' + val.creatureGroups[1].cr
-            else
-              td.CRColumn= val.creatureGroups[1].cr
-          else
-            td
-
-          if val.creatureGroups[2]
-            if val.creatureGroups[2].num > 1
-              td.CRColumn= val.creatureGroups[2].num + 'x ' + val.creatureGroups[2].cr
-            else
-              td.CRColumn= val.creatureGroups[2].cr
-          else
-            td
-          td.XPColumn= val.xp
+              td.diceRollColumn= val.rollText
+              if val.creatureGroups[0].num > 1
+                td.CRColumn= val.creatureGroups[0].num + 'x ' + val.creatureGroups[0].cr
+              else
+                td.CRColumn= val.creatureGroups[0].cr
+              if val.creatureGroups[1].num > 1
+                td.CRColumn= val.creatureGroups[1].num + 'x ' + val.creatureGroups[1].cr
+              else
+                td.CRColumn= val.creatureGroups[1].cr
+              if val.creatureGroups[2].num > 1
+                td.CRColumn= val.creatureGroups[2].num + 'x ' + val.creatureGroups[2].cr
+              else
+                td.CRColumn= val.creatureGroups[2].cr
+              td.XPColumn= val.xp
           if debugging
             td.text-right= Math.round(val.factors.xpTolerance * 10) / 10
             td.text-right= val.factors.numberOfGroups

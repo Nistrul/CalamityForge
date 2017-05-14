@@ -76,6 +76,12 @@ function getIndivdualTreasureTableRow(treasureTable, roll)
 	return null;
 }
 
+function rollIndividualTreasureTableRow(treasureTable)
+{
+	var roll = Math.floor(Math.random() * 100) + 1;
+	return getIndivdualTreasureTableRow(treasureTable, roll);
+}
+
 function rollIndividualTreasure(treasureTableRow, treasures)
 {
 	for (var j = 0; j < treasureTableRow.treasure.length; j++)
@@ -103,9 +109,12 @@ function rollIndividualTreasure(treasureTableRow, treasures)
 function rollIndividualTreasures(number, crIndex, treasures)
 {
 	var treasureTable = getIndividualTreasureTable(crIndex);
-	var roll = Math.floor(Math.random() * 100) + 1;
-	var row = getIndivdualTreasureTableRow(treasureTable, roll);
-	rollIndividualTreasure(row, treasures);
+	var row = rollIndividualTreasureTableRow(treasureTable);
+
+	for (var i = 0; i < number; i++)
+	{
+		rollIndividualTreasure(row, treasures);
+	}
 
 	var properties = [
 		'pp',
@@ -115,8 +124,7 @@ function rollIndividualTreasures(number, crIndex, treasures)
 		'cp'];
 
 	for (var i = 0; i < properties.length; i++) {
-		if (treasures[properties[i]])
-		{
+		if (treasures[properties[i]]) {
 			console.log(properties[i] + ": " + treasures[properties[i]]);
 		}
 	}
@@ -124,7 +132,26 @@ function rollIndividualTreasures(number, crIndex, treasures)
 	return treasures;
 }
 
-function Treasure() {
-	return 
+function rollIndividualTreasureBatch(cr0to4Count, cr5to10Count, cr11to16Count, cr17to20Count)
+{
+	var treasures = {};
+	var rollCounts = [cr0to4Count, cr5to10Count, cr11to16Count, cr17to20Count];
+	var i, j;
+	var treasureTable;
+	var row;
+
+	for (i = 0; i < 4; i++)
+	{
+		treasureTable = individualTreasureTable[i];
+		row = rollIndividualTreasureTableRow(treasureTable);
+
+		for (j = 0; j < rollCounts[i]; j++)
+		{
+			rollIndividualTreasure(row, treasures);
+		}
+	}
+
+	return treasures;
 }
+
 
