@@ -13,7 +13,7 @@ var encountersCRTable = [
 	{crIndex:  5, cr:   '2', xp:    450},
 	{crIndex:  6, cr:   '3', xp:    700},
 	{crIndex:  7, cr:   '4', xp:   1100},
-	{crIndex:  8, cr:   '5', xp:   1800},
+	{crIndex:  8, cr:   '5', xp:   1800}, 
 	{crIndex:  9, cr:   '6', xp:   2300},
 	{crIndex: 10, cr:   '7', xp:   2900},
 	{crIndex: 11, cr:   '8', xp:   3900},

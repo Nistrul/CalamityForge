@@ -27,3 +27,6 @@ bower_components
 
 # Caches
 *.cache
+
+# Operating system files
+.DS_Store

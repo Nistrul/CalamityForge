@@ -9,30 +9,33 @@ var plugins =
 
 var server = {
 	start: './bin/www',
-	scriptPaths: ['app.js', 'routes/*.js', 'src/*.js']
+	scriptPaths: ['main.js', 'routes/*.js', 'src/*.js']
 };
 
+let lint = function () {
+  return gulp.src(server.scriptPaths)
+  .pipe(plugins.jshint())
+  .pipe(plugins.jshint.reporter('jshint-stylish'));
+}
 
+gulp.task('lint', lint);
 
-gulp.task('server', ['lint'], function() {});
+gulp.task('server', gulp.series('lint'));
 
-gulp.task('lint', function() {
-    return gulp.src(server.scriptPaths)
-        .pipe(plugins.jshint())
-        .pipe(plugins.jshint.reporter('jshint-stylish'));
-});
-
-
-gulp.task('serverMon', function () {
+let serverMon = function () {
   return plugins.nodemon({
-    watch: server.scriptPaths,
-    script: server.start
-  });
-});
+      watch: server.scriptPaths,
+      script: server.start
+    });
+  }
 
-gulp.task('watch', function() {
-	gulp.watch(server.scriptPaths, ['server']) 
-  });
+gulp.task('serverMon', serverMon);
 
-gulp.task('default', ['server'], function() {});
+let watch = function() {
+	gulp.watch(server.scriptPaths, gulp.series('server')) 
+}
+
+gulp.task('watch', watch);
+
+gulp.task('default', gulp.series('server'));
 
