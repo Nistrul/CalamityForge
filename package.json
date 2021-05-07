@@ -7,21 +7,21 @@
     "gulp": "./node_modules/gulp/bin/gulp.js"
   },
   "dependencies": {
-    "binarysearch": "~0.2.4",
-    "body-parser": "^1.18.3",
-    "cookie-parser": "~1.4.0",
-    "debug": "^4.1.0",
-    "express": "^4.16.4",
-    "gulp-cli": "^2.0.1",
-    "jshint": "^2.9.6",
-    "morgan": "^1.9.1",
-    "pug": "^2.0.3",
+    "binarysearch": "~1.0.1",
+    "body-parser": "^1.19.0",
+    "cookie-parser": "~1.4.5",
+    "debug": "^4.3.1",
+    "express": "^4.17.1",
+    "gulp-cli": "^2.3.0",
+    "jshint": "^2.12.0",
+    "morgan": "^1.10.0",
+    "pug": "^3.0.2",
     "serve-favicon": "^2.5.0"
   },
   "devDependencies": {
-    "gulp": "^4.0.0",
+    "gulp": "^4.0.2",
     "gulp-jshint": "^2.1.0",
-    "gulp-nodemon": "^2.4.1",
-    "jshint-stylish": "^2.0.1"
+    "gulp-nodemon": "^2.5.0",
+    "jshint-stylish": "^2.2.1"
   }
 }
